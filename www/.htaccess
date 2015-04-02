@@ -1,0 +1,5 @@
+AuthType Basic
+AuthName "Restricted File"
+AuthBasicProvider file
+AuthUserFile /home/astra/git/listbot/www/.htpasswd
+Require valid-user

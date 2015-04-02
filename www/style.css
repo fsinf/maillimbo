@@ -1,0 +1,104 @@
+/* apply a natural box layout model to all elements, but allowing components to change */
+html {
+	box-sizing: border-box;
+}
+
+*, *:before, *:after {
+	box-sizing: inherit;
+}
+
+
+td a {
+	text-decoration: none;
+	color: #393;
+}
+
+.openmail-ignored a {
+	text-decoration: none;
+	color: #f00;
+}
+
+td {
+	border: 0em;
+	white-space: nowrap;
+	display: inline-block;
+}
+
+tr {
+	border: 0em;
+	clear: both;
+	min-width: 100%;
+}
+
+table {
+	border: 0em;
+	min-width: 100%;
+}
+
+.openmail {
+	background: #eee;
+	padding: 0.2em;
+	margin: 0.1em;
+	float: left;
+}
+
+.openmail-any {
+	border: 0.2em solid #999999;
+}
+
+.openmail-ignored {
+	border: 0.2em solid #00b530;
+}
+
+.openmail-future {
+	border: 0.2em solid #5c39d4;
+}
+
+.openmail-2d {
+	border: 0.2em solid #ffe25b;
+}
+
+.openmail-1w {
+	border: 0.2em solid #ffda2c;
+}
+
+.openmail-2w {
+	border: 0.2em solid #f2c800;
+}
+
+.openmail-4w {
+	border: 0.2em solid #ff6e5b;
+}
+
+.openmail-8w {
+	border: 0.2em solid #ff452c;
+}
+
+.openmail-1y {
+	border: 0.2em solid #ff1e00;
+}
+
+.mdate {
+	text-align: center;
+	width: 10em;
+	padding: 0.1em;
+	float: left;
+}
+.msubject {
+	text-align: left;
+	padding: 0.1em;
+	margin-left: 0.5em;
+	float: left;
+}
+.msender {
+	background: #ccc;
+	padding: 0.1em;
+	float: right;
+}
+.mtools {
+	text-align: center;
+	background: #ddd;
+	width: 1.5em;
+	padding: 0.1em;
+	float: left;
+}
