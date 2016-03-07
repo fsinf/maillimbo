@@ -118,6 +118,7 @@ if ($curtable != "") {
 
 echo "<!DOCTYPE html>
 <html><head>
+<title>unanswered mails: $total_unanswered_mails</title>
 <link rel='stylesheet' type='text/css' href='style.css' />
 </head><body>
 <p>Total mails in the last four weeks: <em>$total_mails_last_4_weeks</em>, number of unanswered mails: <em>$total_unanswered_mails</em></p>
