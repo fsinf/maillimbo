@@ -38,11 +38,12 @@ msg['From'] = 'listbot@ionic.at'
 msg['Reply-To'] = 'astra+listbot@ionic.at'
 msg['To'] = 'fsinf@fsinf.at'
 
-# Send the message via our own SMTP server, but don't include the
-# envelope header.
-s = smtplib.SMTP('localhost')
-s.sendmail(msg['From'], [msg['To']], msg.as_string())
-s.quit()
+if count > 0:
+    # Send the message via our own SMTP server, but don't include the
+    # envelope header.
+    s = smtplib.SMTP('localhost')
+    s.sendmail(msg['From'], [msg['To']], msg.as_string())
+    s.quit()
 
 conn.commit()
 
