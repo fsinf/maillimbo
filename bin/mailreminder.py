@@ -26,7 +26,7 @@ for (x_id, x_maildate, x_subject, x_sender) in cur.fetchall():
     count = count + 1
 
 mailheader = ['Hallo Du.', '', 'Da sind %s mails, die beantwortet werden wollen.' % count, '', 'Und zwar:', '']
-mailfooter = ['', 'Falls diese Mails nicht mehr relevant sind (Spam o.ä.) können diese unter http://ionic.at/beratung/ als erledigt markiert werden.']
+mailfooter = ['', 'Falls diese Mails nicht mehr relevant sind (Spam o.ä.) können diese unter http://ionic.at/beratung/ als erledigt markiert werden.','','','Mehr Infos gibts auf https://intern.fsinf.at/wiki/Beratung_per_Mail']
 mailtext = mailheader + maillist + mailfooter
 
 msg = MIMEText('\n'.join(mailtext), 'plain', 'UTF-8')
