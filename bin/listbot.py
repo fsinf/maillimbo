@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 import psycopg2, sys, email, time, datetime
+from email import parser
 from database import connstr
 
 with psycopg2.connect(connstr) as conn:
@@ -9,13 +10,13 @@ with psycopg2.connect(connstr) as conn:
         # Read from STDIN into array of lines.
         email_input = sys.stdin.readlines()
 
-        # email.FeedParser.feed() expects to receive lines one at a time
+        # email.parsers.FeedParser.feed() expects to receive lines one at a time
         # msg holds the complete email Message object
-        parser = email.FeedParser.FeedParser()
+        feedparser = parser.FeedParser()
         msg = None
         for msg_line in email_input:
-            parser.feed(msg_line)
-        msg = parser.close()
+            feedparser.feed(msg_line)
+        msg = feedparser.close()
 
         if msg.has_key('Message-ID') and msg.has_key('List-Id'):
             msgid = msg.get('Message-ID')
