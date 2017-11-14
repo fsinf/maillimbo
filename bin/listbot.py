@@ -3,6 +3,11 @@
 import psycopg2, sys, email, time, datetime
 from email import parser
 from database import connstr
+import logging
+
+logging.basicConfig(filename='/tmp/maillimbo.log',level=logging.DEBUG)
+
+logging.info("maillimbo starting at {}".format(time.asctime(time.localtime(time.time()))))
 
 with psycopg2.connect(connstr) as conn:
     with conn.cursor() as cur:
@@ -22,6 +27,7 @@ with psycopg2.connect(connstr) as conn:
             msgid = msg.get('Message-ID')
             listid = msg.get('List-Id')
             sender = msg.get('From')
+            logging.debug("Handling mail {} ({})".format(msgid, listid))
             if '<beratung.lists.fsinf.at>' in listid:
                 msgdate = datetime.datetime.fromtimestamp(time.mktime(email.utils.parsedate(msg.get('Date'))))
                 subject = msg.get('Subject')
@@ -32,16 +38,15 @@ with psycopg2.connect(connstr) as conn:
                     cur.execute("SELECT replyid FROM beratung WHERE mailid=%s", (replytoid,))
                     res = cur.fetchone()
                     if res is None:
-                        print ("Mail being answered to could not be found.")
+                        logging.debug("Mail being answered to could not be found.")
                     elif res[0] is None:
-                        print ("There has been no answer so far, store this one")
+                        logging.debug("There has been no answer so far, store this one")
                         cur.execute("UPDATE beratung SET replyid=%s, replydate=%s WHERE mailid=%s", (msgid, msgdate, replytoid))
                     else:
-                        print ("Mail has already been answered, skipping")
+                        logging.debug("Mail has already been answered, skipping")
                 else:
                     cur.execute("INSERT INTO beratung (mailid, maildate, isreply, subject, sender) VALUES (%s, %s, %s, %s, %s)", (msgid, msgdate, False, subject, sender))
 
-        with open('/tmp/mailbotfile', 'a') as f:
-            f.write(msg.as_string())
+        logging.debug("Message: {}".format(msg.as_string()))
 
         conn.commit()
