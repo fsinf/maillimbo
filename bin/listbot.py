@@ -23,18 +23,18 @@ with psycopg2.connect(connstr) as conn:
             feedparser.feed(msg_line)
         msg = feedparser.close()
 
-        if msg.has_key('Message-ID') and msg.has_key('List-Id'):
-            msgid = msg.get('Message-ID')
-            listid = msg.get('List-Id')
-            sender = msg.get('From')
+        if 'Message-ID' in msg and 'List-Id' in msg:
+            msgid = msg['Message-ID']
+            listid = msg['List-Id']
+            sender = msg['From']
             logging.debug("Handling mail {} ({})".format(msgid, listid))
             if '<beratung.lists.fsinf.at>' in listid:
-                msgdate = datetime.datetime.fromtimestamp(time.mktime(email.utils.parsedate(msg.get('Date'))))
-                subject = msg.get('Subject')
-                if msg.has_key('In-Reply-To'):
+                msgdate = datetime.datetime.fromtimestamp(time.mktime(email.utils.parsedate(msg['Date'])))
+                subject = msg['Subject']
+                if 'In-Reply-To' in msg:
                     # this is an answer to an other mail
                     cur.execute("INSERT INTO beratung (mailid, maildate, isreply, subject, sender) VALUES (%s, %s, %s, %s, %s)", (msgid, msgdate, True, subject, sender))
-                    replytoid = msg.get('In-Reply-To')
+                    replytoid = msg['In-Reply-To']
                     cur.execute("SELECT replyid FROM beratung WHERE mailid=%s", (replytoid,))
                     res = cur.fetchone()
                     if res is None:
