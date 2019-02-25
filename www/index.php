@@ -90,14 +90,14 @@ while (($res = pg_fetch_object($query)) != null) {
 	if ($res->ignore !== 't' && $res->replyid === null) {
 		$total_unanswered_mails++;
 		$curtable .= "<tr class='openmail ".$levels[$curlvl]['class']."'>\n";
-		$curtable .=  "<td class='mtools'><a href='index.php?".$link_state."&ignore=".$res->id."'>✔</a></td>\n";
+		$curtable .=  "<td class='mtools'><a href='index.php?".$link_state."&ignore=".$res->id."' title='mark as resolved'>✔</a></td>\n";
 		$curtable .=  "<td class='mdate'>".date('Y-m-d H:i', $timestamp)."</td>\n";
 		$curtable .=  "<td class='msubject'>".htmlspecialchars(iconv_mime_decode($res->subject))."</td>\n";
 		$curtable .=  "<td class='msender'>".htmlspecialchars(iconv_mime_decode($res->sender))."</td>\n";
 		$curtable .= "</tr>\n";
 	} elseif ($showignored && $res->replyid === null) {
 		$curtable .= "<tr class='openmail openmail-ignored'>\n";
-		$curtable .=  "<td class='mtools'><a href='index.php?".$link_state."&unignore=".$res->id."'>✔</a></td>\n";
+		$curtable .=  "<td class='mtools'><a href='index.php?".$link_state."&unignore=".$res->id."' title='mark as unresolved'>✔</a></td>\n";
 		$curtable .=  "<td class='mdate'>".date('Y-m-d H:i', $timestamp)."</td>\n";
 		$curtable .=  "<td class='msubject'>".htmlspecialchars(iconv_mime_decode($res->subject))."</td>\n";
 		$curtable .=  "<td class='msender'>".htmlspecialchars(iconv_mime_decode($res->sender))."</td>\n";
